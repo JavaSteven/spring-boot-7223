@@ -1,0 +1,38 @@
+buildscript {
+    ext {
+        springBootVersion = '1.3.2.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+apply plugin: 'io.spring.dependency-management' 
+apply plugin: 'war'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+}
+
+springBoot {
+    mainClass = "bug.Application"
+}
+
+bootRun {
+    // support passing -Dsystem.property=value to bootRun task
+    systemProperties = System.properties
+}
